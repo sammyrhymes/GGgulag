@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>tournaments</h1>
+    {% if tournaments %}
+    {% for tournament in tournaments %}
+        <p>{{ tournament.title }}</p>
+        <p>{{ tournament.game }}</p>
+        <p>{{ tournament.deadline }}</p>
+        <p>{{ tournament.country_restriction }}</p>
+        <p>{{ tournament.prize_pool }}</p>
+        <p>{{ tournament.registration_fee }}</p>
+        <a href="{% url 'tournaments:create_tournament' %}">create tournament</a></p>
+    {% endfor %}
+    {% else %}
+        non available
+        <a href="{% url 'tournaments:create_tournament' %}">create tournament</a></p>
+    {% endif %}
+{% endblock %}
