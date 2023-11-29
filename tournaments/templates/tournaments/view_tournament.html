@@ -1,0 +1,14 @@
+{% extends 'tournaments/base.html' %}
+{% block content %}
+    {% if tournament.organizer == user %}
+    <p><a href="{% url 'tournaments:edit_tournament' id=tournament.id  %}">edit tournament</a>    <a href="{% url 'tournaments:delete_tournament' id=tournament.id  %}">delete tournament</a>  </p>
+    {% endif %}
+    <h1>{{ tournament.title }} by {{ tournament.organizer }}</h1>
+    <p>{{ tournament.game }}</p>
+    <p>{{ tournament.deadline }}</p>
+    <p>{{ tournament.country_restriction }}</p>
+    <p>{{ tournament.prize_pool }}</p>
+    <p>{{ tournament.registration_fee }}</p>
+    <a href="{% url 'tournaments:list_tournaments' %}">back</a></p>
+
+{% endblock %}

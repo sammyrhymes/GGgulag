@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
 from django.utils.http import urlencode
@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from .forms import TournamentForm, LoginForm, SignupForm
 from .models import Tournament
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class LoginView(View):
 
@@ -59,16 +60,14 @@ class SignupView(View):
             return redirect(request.path)
 
 
-class CreateTournament(View):
+class CreateTournament(LoginRequiredMixin,View):
 
     template_name = 'tournaments/create_tournaments.html'
+    login_url  = 'tournaments:login'
 
-    def get(self, request):
-        if request.user.is_authenticated:    
-            form = TournamentForm()
-            return render(request, self.template_name, {'form': form})
-        loginurl = reverse('tournaments:login') + '?' + urlencode({'next' : request.path})
-        return redirect(loginurl)
+    def get(self, request):   
+        form = TournamentForm()
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
         form = TournamentForm(request.POST)
@@ -77,16 +76,80 @@ class CreateTournament(View):
             tournament.organizer = request.user
             tournament.save()
             return redirect('tournaments:list_tournaments')
+        return redirect('tournaments:create_tournament')
 
-class list_Tournament(View):
+class list_Tournament(LoginRequiredMixin,View):
 
     template_name = 'tournaments/list_tournaments.html'
+    login_url  = 'tournaments:login'
 
     def get(self, request):
-        if request.user.is_authenticated:
-            tournaments = Tournament.objects.values()
-            title = 'Tournaments'  
-            return render(request, self.template_name, {'tournaments': tournaments, 'title': title})
-        loginurl = reverse('tournaments:login') + '?' + urlencode({'next' : request.path})
-        return redirect(loginurl)
 
+        tournaments = Tournament.objects.values().order_by('-id')
+        title = 'Tournaments'  
+        return render(request, self.template_name, {'tournaments': tournaments, 'title': title})
+
+
+class View_Tournament( LoginRequiredMixin,View):
+
+    template_name = 'tournaments/view_tournament.html'
+    login_url  = 'tournaments:login'
+
+    def get(self, request, id):
+
+        tournament = get_object_or_404(Tournament, id=id)
+        return render(request, self.template_name, { 'tournament' : tournament})
+
+
+class EditTournament( UserPassesTestMixin,View):
+    
+    template_name = 'tournaments/edit_tournament.html'
+    login_url  = 'tournaments:login'
+    
+    def test_func(self):
+        tournament = get_object_or_404(Tournament, id=self.kwargs['id'])
+        return self.request.user == tournament.organizer
+    
+    def handle_no_permission(self):
+        messages.error(self.request, "You don't have permission to edit this tournament.")
+        return redirect('tournaments:no_permission') 
+
+    def get(self, request, id):
+        tournament = get_object_or_404(Tournament, id=id)
+        form = TournamentForm(instance=tournament)
+        return render(request, self.template_name, {'form': form, 'tournament': tournament})
+
+    def post(self, request, id):
+        tournament = get_object_or_404(Tournament, id=id)
+        form = TournamentForm(request.POST, instance=tournament)
+        if form.is_valid():
+            form.save()
+            return redirect('tournaments:view_tournament', id=id)
+        
+class NoPermission(View):
+
+    template_name = 'tournaments/no_permission.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+    
+class DeleteTournament(UserPassesTestMixin, View):
+    
+    template_name = 'tournaments/delete_tournament.html'
+
+    def test_func(self):
+        tournament = get_object_or_404(Tournament, id=self.kwargs['id'])
+        return self.request.user == tournament.organizer
+    
+    def handle_no_permission(self):
+        messages.error(self.request, "You don't have permission to edit this tournament.")
+        return redirect('tournaments:no_permission') 
+
+    def get(self, request, id):
+        tournament = get_object_or_404(Tournament, id=id)
+        return render(request, self.template_name, {'tournament': tournament})
+
+    def post(self, request, id):
+        tournament = get_object_or_404(Tournament, id=id)
+        tournament.delete()
+        return redirect('tournaments:list_tournaments')

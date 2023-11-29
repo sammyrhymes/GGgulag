@@ -9,4 +9,8 @@ urlpatterns = [
     path('signup/', SignupView.as_view(), name='signup'),
     path('create_tournament/', CreateTournament.as_view(), name='create_tournament'),
     path('', list_Tournament.as_view(), name='list_tournaments'),    
+    path('tournament/<int:id>', View_Tournament.as_view(), name='view_tournament'),    
+    path('edit_tournament/<int:id>', EditTournament.as_view(), name='edit_tournament'),     
+    path('no_permission/', NoPermission.as_view(), name='no_permission'),    
+    path('delete_tournament/<int:id>', DeleteTournament.as_view(), name='delete_tournament'),      
 ]

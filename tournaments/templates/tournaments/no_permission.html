@@ -1,0 +1,8 @@
+{% extends 'tournaments/base.html' %}
+{% block content %}
+
+<p>you are a sneaky one aren't you</p>
+<p>Sorry but only the owner can update the tournament</p>
+<a href="{% url 'tournaments:list_tournaments' %}">tournaments</a></p>
+
+{% endblock %}

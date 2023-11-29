@@ -6,12 +6,14 @@
     <a href="{% url 'tournaments:logout' %}">logout</a>
     {% if tournaments %}
     {% for tournament in tournaments %}
-        <p>{{ tournament.title }} by {{ tournament.organizer }}</p>
+    <div style="border-top: 1px solid coral; padding: 2rem;">
+        <p><a href="{% url 'tournaments:view_tournament' id=tournament.id %}">{{ tournament.title }}</a> by {{ tournament.organizer }}</p>
         <p>{{ tournament.game }}</p>
         <p>{{ tournament.deadline }}</p>
         <p>{{ tournament.country_restriction }}</p>
         <p>{{ tournament.prize_pool }}</p>
         <p>{{ tournament.registration_fee }}</p>
+    </div>
     {% endfor %}
     {% else %}
         non available
