@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'tournaments/base.html' %}
 {% block content %}
-<form action="post" method="{% url 'tournaments:create_tournament' %}">
+<form action="{% url 'tournaments:create_tournament' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="create tournament">
 </form>
-<a href="{% url 'tournaments:list_tournament' %}">checkout available tournaments</a></p>
+<a href="{% url 'tournaments:list_tournaments' %}">checkout available tournaments</a></p>
+<a href="{% url 'tournaments:logout' %}">logout</a>
 {% endblock %}
