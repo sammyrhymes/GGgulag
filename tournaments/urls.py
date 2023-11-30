@@ -18,3 +18,6 @@ urlpatterns = [
     path('mytournaments/', MyTournaments.as_view(), name='mytournaments'),
     path('tournament/<int:tournament_id>/participants/', Participants.as_view(), name='participants'),
 ]
+
+
+

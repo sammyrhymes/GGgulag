@@ -175,7 +175,7 @@ class ParticipatingTournaments(LoginRequiredMixin,View):
     def get(self, request):
 
         tournaments = Tournament.objects.filter(participants=request.user)
-        participants = Tournament.participants.all()
+        participants = Tournament.participants
 
         context = {'tournaments': tournaments, 'participants':participants}
         return render(request, self.template_name, context)

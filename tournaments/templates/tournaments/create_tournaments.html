@@ -1,15 +1,39 @@
 {% extends 'tournaments/base.html' %}
 {% block content %}
+<style>
+    body{
+        width: 100%;
+        margin: auto;
+    }
+    form{
+        width: 60%;
+        margin: 2rem auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+    }
+    input[type='submit']{
+        width: 40%;
+        height: 3rem;
+        border-radius: 1.5rem;
+        margin: auto;
+        background-color: black;
+        color: aliceblue;
+    }
+    input[type = 'textfield']{
+        width: 100px;
+    }
+</style>
 {% if error %}
-<div>
+<div class="alert alert-danger">
     {{error}}
 </div>
 {% endif %}
-<form action="{% url 'tournaments:create_tournament' %}" method="post">
+<h1 class="text-center mb-3">Create your tournament here!</h1>
+<form class="form-group" class="mb-4" action="{% url 'tournaments:create_tournament' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="create tournament">
 </form>
-<a href="{% url 'tournaments:list_tournaments' %}">checkout available tournaments</a></p>
-<a href="{% url 'tournaments:logout' %}">logout</a>
 {% endblock %}

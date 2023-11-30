@@ -3,11 +3,36 @@
 {% block content %}
 {% block header %}
 {% endblock %}
-  <h2>Edit Tournament</h2>
+<style>
+  body{
+      width: 100%;
+      margin: auto;
+  }
+  form{
+      width: 60%;
+      margin: 2rem auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+  }
+  input[type='submit']{
+      width: 40%;
+      height: 3rem;
+      border-radius: 1.5rem;
+      margin: auto;
+      background-color: black;
+      color: aliceblue;
+  }
+  input[type = 'textfield']{
+      width: 100px;
+  }
+</style>
+  <h1 class="text-center my-3">Edit Tournament</h1>
   <form method="post" >
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save Changes</button>
+    <input type="submit" value="Update tournament">
   </form>
   <a href="{% url 'tournaments:view_tournament' tournament.id %}">Cancel</a>
 {% endblock %}
