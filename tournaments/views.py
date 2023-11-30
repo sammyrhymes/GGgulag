@@ -70,13 +70,14 @@ class CreateTournament(LoginRequiredMixin,View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = TournamentForm(request.POST)
+        form = TournamentForm(request.POST, request.FILES)
         if form.is_valid():
             tournament = form.save(commit=False)
             tournament.organizer = request.user
             tournament.save()
             return redirect('tournaments:list_tournaments')
-        return redirect('tournaments:create_tournament')
+        error = "invalid form"
+        return redirect('tournaments:create_tournament', {'error':error})
 
 class list_Tournament(LoginRequiredMixin,View):
 
@@ -174,8 +175,9 @@ class ParticipatingTournaments(LoginRequiredMixin,View):
     def get(self, request):
 
         tournaments = Tournament.objects.filter(participants=request.user)
+        participants = Tournament.participants.all()
 
-        context = {'tournaments': tournaments}
+        context = {'tournaments': tournaments, 'participants':participants}
         return render(request, self.template_name, context)
     
 class Index(View):
@@ -183,3 +185,22 @@ class Index(View):
 
     def get(self, request):
         return render(request, self.template_name)
+    
+
+
+class MyTournaments(LoginRequiredMixin, View):
+    template_name = 'tournaments/mytournaments.html'
+    login_url = 'tournament:login'
+
+    def get(self, request):
+        tournaments = Tournament.objects.filter(organizer=request.user)
+        return render(request, self.template_name, {'tournaments': tournaments})
+
+class Participants(LoginRequiredMixin, View):
+
+    template_name = 'tournaments/participants.html'
+    login_url = 'tournament:login'
+
+    def get(self, request, tournament_id):
+        tournament = get_object_or_404(Tournament, id=tournament_id)
+        return render(request, 'tournaments/participants.html', {'tournament': tournament})

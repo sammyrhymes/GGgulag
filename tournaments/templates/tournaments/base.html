@@ -44,7 +44,7 @@
   <header id="header" class="header d-flex align-items-center mb-4">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{% url 'tournaments:list_tournaments' %}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="{% static '/img/logo.png" alt=""> -->
         <h1>GGgulag</h1>
@@ -55,9 +55,9 @@
             <ul class="footer-links list-unstyled">
                 <li><a href="{% url 'tournaments:list_tournaments' %}"> Home</a></li>
                 <li><a href="{% url 'tournaments:create_tournament' %}"> create tournament</a></li>
-                                <li><a href="{% url 'tournaments:participating_tournament' %}"></i>participating</a></li>
-                                <li><a href="{% url 'tournaments:logout' %}">logout</a></li>
-
+                <li><a href="{% url 'tournaments:participating_tournament' %}"></i>participating</a></li>
+                <li><a href="{% url 'tournaments:mytournaments' %}">MyTournaments</a></li>
+                <li><a href="{% url 'tournaments:logout' %}">logout</a></li>
               </ul>
       </nav><!-- .navbar -->
 

@@ -1,0 +1,14 @@
+{% extends 'tournaments/base.html' %}
+
+{% block content %}
+    <h2>{{ tournament.name }} Participants</h2>
+    {% if tournament.participants.all %}
+        <ol>
+            {% for participant in tournament.participants.all %}
+                <li>{{ participant.username }}</li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No participants in this tournament yet.</p>
+    {% endif %}
+{% endblock %}

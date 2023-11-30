@@ -12,6 +12,7 @@ class Tournament(models.Model):
     prize_pool = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=[('Open', 'Open'), ('Closed', 'Closed')])
     participants = models.ManyToManyField(User, related_name='tournament_participants', blank=True)
+    image = models.ImageField(upload_to='tournament_images/', null=True, blank=True) 
 
     def __str__(self):
         return self.title

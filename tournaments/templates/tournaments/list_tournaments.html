@@ -1,12 +1,12 @@
 {% extends 'tournaments/base.html' %}
 {% block content %}
 {% load static %}
-<div>
-    <p>Welcome {{ request.user }}</p>
-    <h1>tournaments</h1>
+<div class="text-center">
+    <h1>Welcome to GGgulag Tournaments</h1>
+    <p>Find a tornament tot join down below!</p>
 </div>
     {% if tournaments %}
-    <div class="" style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+    <div class=" row"> 
 
     {% for tournament in tournaments %}
     <!-- <div style="padding: 2rem;" class="container-fluid container-xl d-flex flex-column  justify-content-between">
@@ -18,15 +18,19 @@
         <p>{{ tournament.prize_pool }}</p>
         <p>{{ tournament.registration_fee }}</p></a>
     </div> -->
-
+    <div class="col-md-4">
     <div class="card p-3" style="width: 25rem; margin: 2rem 0;">
+        {% if tournament.image %}
+        <img src="{{ tournament.image.url }}" alt="{{ tournament.name }} Image">
+        {% else %}
         <img class="card-img-top" src="{% static 'img/post-landscape-5.jpg' %}" alt="Card image cap">
+    {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ tournament.title }}</h5>
           <p class="card-text">{{ tournament.game }}</p>
           <a href="{% url 'tournaments:view_tournament' id=tournament.id %}" class="btn btn-primary">View tournament</a>
         </div>
-      </div>
+      </div></div>
     {% endfor %}
 </div>
     {% else %}

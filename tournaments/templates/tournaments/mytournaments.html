@@ -1,0 +1,26 @@
+{% extends 'tournaments/base.html' %}
+{% block content %}
+{% load static %}
+<div class="text-center">
+    <h1>Welcome to  MyTournaments</h1>
+    <p>Below find all tournaments you have ever made.</p>
+</div>
+    {% if tournaments %}
+    <div class=" row"> 
+
+    {% for tournament in tournaments %}
+    <div class="col-md-4">
+    <div class="card p-3" style="width: 25rem; margin: 2rem 0;">
+        <img class="card-img-top" src="{% static 'img/post-landscape-5.jpg' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ tournament.title }}</h5>
+          <p class="card-text">{{ tournament.game }}</p>
+          <a href="{% url 'tournaments:view_tournament' id=tournament.id %}" class="btn btn-primary">View tournament</a>
+        </div>
+      </div></div>
+    {% endfor %}
+</div>
+    {% else %}
+        <h1 class="text-center">You are yet to create a tournament</h1>
+    {% endif %}
+{% endblock %} 

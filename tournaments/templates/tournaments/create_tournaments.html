@@ -1,5 +1,10 @@
 {% extends 'tournaments/base.html' %}
 {% block content %}
+{% if error %}
+<div>
+    {{error}}
+</div>
+{% endif %}
 <form action="{% url 'tournaments:create_tournament' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}

@@ -14,5 +14,7 @@ urlpatterns = [
     path('no_permission/', NoPermission.as_view(), name='no_permission'),    
     path('delete_tournament/<int:id>', DeleteTournament.as_view(), name='delete_tournament'),      
     path('participating_tournament/', ParticipatingTournaments.as_view(), name='participating_tournament'),  
-    path('index/', Index.as_view(), name='index'),     
+    path('index/', Index.as_view(), name='index'),
+    path('mytournaments/', MyTournaments.as_view(), name='mytournaments'),
+    path('tournament/<int:tournament_id>/participants/', Participants.as_view(), name='participants'),
 ]
