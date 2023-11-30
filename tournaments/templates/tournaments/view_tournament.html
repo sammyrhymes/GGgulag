@@ -9,6 +9,23 @@
     <p>{{ tournament.country_restriction }}</p>
     <p>{{ tournament.prize_pool }}</p>
     <p>{{ tournament.registration_fee }}</p>
+    <p>
+        participants: {{ tournament.participant.count }}
+    </p>
     <a href="{% url 'tournaments:list_tournaments' %}">back</a></p>
+    
+    {% if is_participant %}
+    <form method="post" action="{% url 'tournaments:view_tournament' tournament.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="leave">
+        <input type="submit" value="Leave Tournament">
+    </form>
+{% else %}
+    <form method="post" action="{% url 'tournaments:view_tournament' tournament.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="join">
+        <input type="submit" value="Join Tournament">
+    </form>
+{% endif %}
 
 {% endblock %}

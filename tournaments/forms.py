@@ -7,7 +7,7 @@ class TournamentForm(forms.ModelForm):
     
     class Meta:
         model = Tournament
-        exclude = ['organizer', 'status']
+        exclude = ['organizer', 'status', 'participants']
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150)

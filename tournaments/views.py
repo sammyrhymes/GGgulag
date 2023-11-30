@@ -96,10 +96,22 @@ class View_Tournament( LoginRequiredMixin,View):
     login_url  = 'tournaments:login'
 
     def get(self, request, id):
-
         tournament = get_object_or_404(Tournament, id=id)
-        return render(request, self.template_name, { 'tournament' : tournament})
+        user = request.user
+        is_participant = tournament.participants.filter(id=user.id).exists()
+        return render(request, self.template_name, {'tournament': tournament, 'is_participant': is_participant})
 
+    def post(self, request, id):
+        tournament = get_object_or_404(Tournament, id=id)
+        user = request.user
+        action = request.POST.get('action')
+
+        if action == 'join':
+            tournament.participants.add(user)
+        elif action == 'leave':
+            tournament.participants.remove(user)
+
+        return redirect('tournaments:list_tournaments')
 
 class EditTournament( UserPassesTestMixin,View):
     
@@ -153,3 +165,15 @@ class DeleteTournament(UserPassesTestMixin, View):
         tournament = get_object_or_404(Tournament, id=id)
         tournament.delete()
         return redirect('tournaments:list_tournaments')
+    
+class ParticipatingTournaments(LoginRequiredMixin,View):
+
+    template_name = 'tournaments/participating_tournaments.html'
+    login_url  = 'tournaments:login'
+
+    def get(self, request):
+
+        tournaments = Tournament.objects.filter(participants=request.user)
+
+        context = {'tournaments': tournaments}
+        return render(request, self.template_name, context)

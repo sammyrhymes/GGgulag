@@ -13,4 +13,5 @@ urlpatterns = [
     path('edit_tournament/<int:id>', EditTournament.as_view(), name='edit_tournament'),     
     path('no_permission/', NoPermission.as_view(), name='no_permission'),    
     path('delete_tournament/<int:id>', DeleteTournament.as_view(), name='delete_tournament'),      
+    path('participating_tournament/', ParticipatingTournaments.as_view(), name='participating_tournament'),      
 ]

@@ -4,10 +4,11 @@
     <p>{{ request.user }}</p>
     <a href="{% url 'tournaments:create_tournament' %}">create tournament</a></p>
     <a href="{% url 'tournaments:logout' %}">logout</a>
+    <a href="{% url 'tournaments:participating_tournament' %}">participating</a>
     {% if tournaments %}
     {% for tournament in tournaments %}
     <div style="border-top: 1px solid coral; padding: 2rem;">
-        <p><a href="{% url 'tournaments:view_tournament' id=tournament.id %}">{{ tournament.title }}</a> by {{ tournament.organizer }}</p>
+        <p><a href="{% url 'tournaments:view_tournament' id=tournament.id %}">{{ tournament.title }}</a> by {{ tournament.organizer.username }}</p>
         <p>{{ tournament.game }}</p>
         <p>{{ tournament.deadline }}</p>
         <p>{{ tournament.country_restriction }}</p>

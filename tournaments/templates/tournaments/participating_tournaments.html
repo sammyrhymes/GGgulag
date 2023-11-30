@@ -1,0 +1,16 @@
+{% extends 'tournaments/base.html' %}
+{% block content %}
+
+<h2>Your Participating Tournaments</h2>
+
+{% if tournaments %}
+    <ul>
+        {% for tournament in tournaments %}
+            <li><a href="{% url 'tournaments:view_tournament' id=tournament.id %}">{{ tournament.title }}</a> </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You are not participating in any tournaments.</p>
+{% endif %}
+
+{% endblock %}
