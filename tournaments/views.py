@@ -177,3 +177,9 @@ class ParticipatingTournaments(LoginRequiredMixin,View):
 
         context = {'tournaments': tournaments}
         return render(request, self.template_name, context)
+    
+class Index(View):
+    template_name = 'tournaments/index.html'
+
+    def get(self, request):
+        return render(request, self.template_name)

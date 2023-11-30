@@ -1,5 +1,25 @@
-{% extends 'tournaments/base.html' %}
-
+<head>
+    <style>
+        body{
+            background: black;
+            color: antiquewhite;
+            width: 80%;
+            height: 100vh;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        form > button{
+            margin-left: 100px;
+            width: 70px;
+            background-color: blue;
+            padding: .5rem;
+            border-radius: 1rem;
+        }
+    </style>
+</head>
 {% block content %}
     <h2>Signup</h2>
     <form method="post" action="{% url 'tournaments:signup' %}">

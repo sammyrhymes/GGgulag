@@ -1,22 +1,36 @@
 {% extends 'tournaments/base.html' %}
 {% block content %}
+{% load static %}
+<div>
+    <p>Welcome {{ request.user }}</p>
     <h1>tournaments</h1>
-    <p>{{ request.user }}</p>
-    <a href="{% url 'tournaments:create_tournament' %}">create tournament</a></p>
-    <a href="{% url 'tournaments:logout' %}">logout</a>
-    <a href="{% url 'tournaments:participating_tournament' %}">participating</a>
+</div>
     {% if tournaments %}
+    <div class="" style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+
     {% for tournament in tournaments %}
-    <div style="border-top: 1px solid coral; padding: 2rem;">
-        <p><a href="{% url 'tournaments:view_tournament' id=tournament.id %}">{{ tournament.title }}</a> by {{ tournament.organizer.username }}</p>
-        <p>{{ tournament.game }}</p>
+    <!-- <div style="padding: 2rem;" class="container-fluid container-xl d-flex flex-column  justify-content-between">
+        <a href="{% url 'tournaments:view_tournament' id=tournament.id %}">
+        <h2>{{ tournament.title }}by {{ tournament.organizer.username }}</h2>
+        <p></p>
         <p>{{ tournament.deadline }}</p>
         <p>{{ tournament.country_restriction }}</p>
         <p>{{ tournament.prize_pool }}</p>
-        <p>{{ tournament.registration_fee }}</p>
-    </div>
+        <p>{{ tournament.registration_fee }}</p></a>
+    </div> -->
+
+    <div class="card p-3" style="width: 25rem; margin: 2rem 0;">
+        <img class="card-img-top" src="{% static 'img/post-landscape-5.jpg' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ tournament.title }}</h5>
+          <p class="card-text">{{ tournament.game }}</p>
+          <a href="{% url 'tournaments:view_tournament' id=tournament.id %}" class="btn btn-primary">View tournament</a>
+        </div>
+      </div>
     {% endfor %}
+</div>
     {% else %}
         non available
     {% endif %}
-{% endblock %}
+{% endblock %} 
+
