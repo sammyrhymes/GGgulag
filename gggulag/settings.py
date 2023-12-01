@@ -135,4 +135,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'tournaments:login'  # Replace with your desired URL
 
 MEDIA_URL = 'media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -12,15 +12,19 @@
         participants: {{ tournament.participant.count }}
     </p>
     <a href="{% url 'tournaments:list_tournaments' %}">back</a></p> -->
-    <div class="card bg-dark text-white my-5" style=" max-width: 80%; margin:auto;">
+    <div class="card  my-5" style=" max-width: 80%; margin:auto;">
+        {% if tournament.image %}
+        <img class="card-img-top img-fluid " src="{{ tournament.image.url }}" alt="Card image">
+        {% else %}
         <img class="card-img-top img-fluid" src="{% static 'img/post-landscape-5.jpg' %}" alt="Card image">
+        {% endif %}
         <div class="card-body">
           <h1 class="card-title text-center">{{ tournament.title }} Tournament</h1>
             <div class="details row">
           <p class="card-text col-md-3"> Deadline : {{ tournament.deadline }}</p>
           <p class="card-text col-md-3">Prizepool(ksh) : {{ tournament.prize_pool }}</p>
           <p class="card-text col-md-3"> Organizer : {{ tournament.organizer }}</p>
-          <p class="card-text col-md-3"><a class="text-white" href="{% url 'tournaments:participants' tournament.id %}">Participant(s) : {{ tournament.participants.count }}/{{ tournament.number_restriction }}</a></p>
+          <p class="card-text col-md-3"><a class="" href="{% url 'tournaments:participants' tournament.id %}">Participant(s) : {{ tournament.participants.count }}/{{ tournament.number_restriction }}</a></p>
           <p class="card-text col-md-3">registration fee(ksh) : {{ tournament.registration_fee }}</p>
         </div>
           {% if is_participant %}
@@ -35,14 +39,15 @@
               <input type="hidden" name="action" value="join">
               <button class="btn btn-primary" type="submit">Join tournament</button>
           </form>
+          {% endif %}
           {% if tournament.organizer == user %}
           <div class="buttons d-flex justify-content-end gap-3">
-          <button class="btn btn-primary"><a href="{% url 'tournaments:edit_tournament' id=tournament.id  %}">edit tournament</a></button>   
+          <button class="btn btn-primary "><a class="text-white" href="{% url 'tournaments:edit_tournament' id=tournament.id  %}">edit tournament</a></button>   
           <button class="btn btn-danger"> <a href="{% url 'tournaments:delete_tournament' id=tournament.id  %}">delete tournament</a> </button>
       </div>
           <!-- <p><a href="{% url 'tournaments:edit_tournament' id=tournament.id  %}">edit tournament</a>    <a href="{% url 'tournaments:delete_tournament' id=tournament.id  %}">delete tournament</a>  </p> -->
           {% endif %}
-      {% endif %}
+
         </div>
       </div>
     

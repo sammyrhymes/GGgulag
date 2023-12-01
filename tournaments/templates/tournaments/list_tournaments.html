@@ -18,13 +18,14 @@
         <p>{{ tournament.prize_pool }}</p>
         <p>{{ tournament.registration_fee }}</p></a>
     </div> -->
-    <div class="col-md-4">
+    <div class="col-md-4 col-sd-2">
     <div class="card p-3" style="width: 25rem; margin: 2rem 0;">
+
         {% if tournament.image %}
-        <img src="{{ tournament.image.url }}" alt="{{ tournament.name }} Image">
+            <img src="media/{{ tournament.image }}" class="card-img-top img-fluid"  alt="{{ tournament.name }} Image">
         {% else %}
-        <img class="card-img-top" src="{% static 'img/post-landscape-5.jpg' %}" alt="Card image cap">
-    {% endif %}
+            <img class="card-img-top" src="{% static 'img/post-landscape-5.jpg' %}" alt="Card image cap">
+        {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ tournament.title }}</h5>
           <p class="card-text">{{ tournament.game }}</p>

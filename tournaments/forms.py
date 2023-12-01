@@ -1,5 +1,5 @@
 from django import forms
-from .models import Tournament
+from .models import Tournament, UserProfile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -17,3 +17,8 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
+
+class EditUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['bio', 'country', 'first_name', 'last_name']

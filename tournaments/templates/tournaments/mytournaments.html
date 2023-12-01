@@ -11,7 +11,11 @@
     {% for tournament in tournaments %}
     <div class="col-md-4">
     <div class="card p-3" style="width: 25rem; margin: 2rem 0;">
+        {% if tournament.image %}
+        <img class="card-img-top" src="{{ tournament.image.url }}" alt="">
+        {% else %}
         <img class="card-img-top" src="{% static 'img/post-landscape-5.jpg' %}" alt="Card image cap">
+        {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ tournament.title }}</h5>
           <p class="card-text">{{ tournament.game }}</p>

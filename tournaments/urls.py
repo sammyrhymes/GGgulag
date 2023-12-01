@@ -17,6 +17,8 @@ urlpatterns = [
     path('index/', Index.as_view(), name='index'),
     path('mytournaments/', MyTournaments.as_view(), name='mytournaments'),
     path('tournament/<int:tournament_id>/participants/', Participants.as_view(), name='participants'),
+    path('user/profile/<int:user_id>', UserProfileView.as_view(), name='user_profile'),
+    path('user/profile/edit/', EditUserProfile.as_view(), name='edit_user_profile'),
 ]
 
 

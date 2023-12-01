@@ -1,0 +1,11 @@
+<!-- tournaments/templates/tournaments/user/edit_user_profile.html -->
+{% extends 'tournaments/base.html' %}
+{% block content %}
+  <h2>Edit User Profile</h2>
+  <form method="post" action="{% url 'tournaments:edit_user_profile' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+  <a href="{% url 'tournaments:user_profile ' %}">Cancel</a>
+{% endblock %}

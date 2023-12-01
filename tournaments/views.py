@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.utils.http import urlencode
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from .forms import TournamentForm, LoginForm, SignupForm
-from .models import Tournament
+from .models import Tournament, UserProfile
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class LoginView(View):
@@ -134,7 +134,7 @@ class EditTournament( UserPassesTestMixin,View):
 
     def post(self, request, id):
         tournament = get_object_or_404(Tournament, id=id)
-        form = TournamentForm(request.POST, instance=tournament)
+        form = TournamentForm(request.POST, request.FILES , instance=tournament,)
         if form.is_valid():
             form.save()
             return redirect('tournaments:view_tournament', id=id)
@@ -204,3 +204,20 @@ class Participants(LoginRequiredMixin, View):
     def get(self, request, tournament_id):
         tournament = get_object_or_404(Tournament, id=tournament_id)
         return render(request, 'tournaments/participants.html', {'tournament': tournament})
+    
+class UserProfileView(LoginRequiredMixin, View):
+    template_name = 'user_profile.html'
+
+    def get(self, request, *args, **kwargs):
+        user_profile = UserProfile.objects.get(user=request.user)
+        return render(request, self.template_name, {'user_profile': user_profile})
+
+class EditUserProfile(UserPassesTestMixin, View):
+    model = UserProfile
+    form_class = UserProfile
+    template_name = 'edit_user_profile.html'
+    success_url = reverse_lazy('user_profile')
+
+    def get_object(self, queryset=None):
+        return self.model.objects.get(user=self.request.user)
+
