@@ -12,8 +12,8 @@
             </div>
         <a href="{% url 'tournaments:view_tournament' id=tournament.id %}"><div class="card-body">
             <blockquote class="blockquote mb-0">
-              <p><a href="{% url 'tournaments:user_profile id=user.id' %}">{{ participant.username }}</a></p>
-              <footer class="blockquote-footer">{{ tournament.game }} oganised by <cite title="Source Title"><a href="{% url 'tournaments:user_profile' id=user.id %}">{{ tournament.organizer }}</a></cite></footer>
+              <p>{{ participant.username }}</p>
+              <footer class="blockquote-footer">{{ tournament.game }} oganised by <cite title="Source Title">{{ tournament.organizer }}</cite></footer>
             </blockquote>
             <!-- <li><a href="{% url 'tournaments:view_tournament' id=tournament.id %}">{{ tournament.title }}</a> </li> -->
         </div></a>

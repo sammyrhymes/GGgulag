@@ -42,8 +42,8 @@
           {% endif %}
           {% if tournament.organizer == user %}
           <div class="buttons d-flex justify-content-end gap-3">
-          <button class="btn btn-primary "><a class="text-white" href="{% url 'tournaments:edit_tournament' id=tournament.id  %}">edit tournament</a></button>   
-          <button class="btn btn-danger"> <a href="{% url 'tournaments:delete_tournament' id=tournament.id  %}">delete tournament</a> </button>
+          <a class="text-primary" href="{% url 'tournaments:edit_tournament' id=tournament.id  %}">edit tournament</a>
+          <a class="text-danger"  href="{% url 'tournaments:delete_tournament' id=tournament.id  %}">delete tournament</a>
       </div>
           <!-- <p><a href="{% url 'tournaments:edit_tournament' id=tournament.id  %}">edit tournament</a>    <a href="{% url 'tournaments:delete_tournament' id=tournament.id  %}">delete tournament</a>  </p> -->
           {% endif %}

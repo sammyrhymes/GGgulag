@@ -302,11 +302,14 @@ a.ssolink {
       <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
         <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
           <h1>GGgulag</h1>
+          {% if error %}
+          {{ error }}
+          {% endif %}
         </div>
         <div class="formbg-outer">
           <div class="formbg">
             <div class="formbg-inner padding-horizontal--48">
-              <span class="padding-bottom--15">Sign in to your account</span>
+              <span class="padding-bottom--15">Sign up for an account</span>
 {% block content %}
     <form class="stripe-login"  method="post" action="{% url 'tournaments:signup' %}">
         {% csrf_token %}

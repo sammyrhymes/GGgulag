@@ -39,7 +39,7 @@ class SignupView(View):
     template_name = 'tournaments/signup.html'
 
     def get(self, request):
-        form = SignupForm(instance = request.username)
+        form = SignupForm()
         return render(request, self.template_name, {'form': form})
 
 
@@ -57,7 +57,8 @@ class SignupView(View):
             messages.success(request, 'Account created successfully. You can now log in.')
             return redirect('tournaments:login')
         else:
-            return redirect(request.path)
+            form = SignupForm()
+            return redirect(request.path, {'form' : form, 'error':'invalid credentials'})
 
 
 class CreateTournament(LoginRequiredMixin,View):
