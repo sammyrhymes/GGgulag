@@ -24,6 +24,7 @@
     input[type = 'textfield']{
         width: 100px;
     }
+
 </style>
 {% if error %}
 <div class="alert alert-danger">
@@ -31,7 +32,7 @@
 </div>
 {% endif %}
 <h1 class="text-center mb-3">Create your tournament here!</h1>
-<form class="form-group" class="mb-4" action="{% url 'tournaments:create_tournament' %}" method="post" enctype="multipart/form-data">
+<form class="form-group nice-form-group" class="mb-4" action="{% url 'tournaments:create_tournament' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="create tournament">

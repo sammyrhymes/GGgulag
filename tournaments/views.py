@@ -39,7 +39,7 @@ class SignupView(View):
     template_name = 'tournaments/signup.html'
 
     def get(self, request):
-        form = SignupForm()
+        form = SignupForm(instance = request.username)
         return render(request, self.template_name, {'form': form})
 
 
