@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-qr22-4r3!fm7&_@fa0d4e@zh%52$5u+2yt+m#+5h&z7$r-ktgf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app']
 
 
 # Application definition
@@ -132,7 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 
-LOGOUT_REDIRECT_URL = 'tournaments:login'  # Replace with your desired URL
+LOGOUT_REDIRECT_URL = 'demo:login'  
 
 MEDIA_URL = '/media/'
 
